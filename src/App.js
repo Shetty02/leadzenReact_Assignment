@@ -1,24 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import {useEffect, useState} from "react";
+import CardList from "./components/CardList";
+import Pagination from "./components/Pagination";
 
 function App() {
+  const [user, setUser] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(3);
+  
+  const fetchData = () => {
+    return fetch("https://jsonplaceholder.typicode.com/users")
+      .then((response) => response.json())
+      .then((data) => {
+        setUser(data);
+      });
+  };
+
+  useEffect(() => {
+    fetchData();
+  },[])
+  
+  const lastPostIndex = currentPage * postsPerPage;
+  const firstPostIndex = lastPostIndex - postsPerPage;
+  const currentPosts = user.slice(firstPostIndex, lastPostIndex);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <CardList user={currentPosts} />
+      <Pagination
+        totalPosts={user.length}
+        postsPerPage={postsPerPage}
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
+      />
+    </>
   );
 }
 

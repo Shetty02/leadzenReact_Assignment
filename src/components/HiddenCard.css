@@ -1,0 +1,26 @@
+.hiddenCards{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: white;
+    border: 1px solid antiquewhite;
+    width: 60%;
+    height: 180px;
+    border-radius: 20px;
+    row-gap: 10px;
+    margin: 10px;
+    padding: 10px;
+}
+.lefthiddenCardContainer, .righthiddenCardContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 15px;   
+}
+.lefthiddenCard , .righthiddenCard{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
